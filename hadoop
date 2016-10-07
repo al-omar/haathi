@@ -1,0 +1,45 @@
+su - hduser 
+password-hadoop
+
+check hadoop running by command jps
+if yes then hadoop/sbin/stop-all.sh
+
+before hdfs can be used, it will need formatting by following command-
+hdfs namenode -format
+
+start dfs using-
+./start-dfs.sh
+
+start yarn by -
+./start-yarn.sh
+
+start mapred hisstory server-
+mr-jobhistory-daemon.sh start historyserver
+
+name node: http://localhost:50070
+yarn cluster manager - http://localhost:8088
+yarn node manager - http://localhost:8042
+history server - http://localhost:19888
+
+jps - to check all running processes
+
+if datanode fails to start, delete all folders in datanode home directory and format the name node again
+
+command to run any job MaxTempDriver is class name
+hadoop jar first.jar com.ch02.MaxTempDriver /alomar/weatherdataset.csv /output
+
+to run definitive examples book jar we need to first set env variable HADOOP_CLASSPATH to that jar then run below command
+hadoop Classname inputargs
+
+
+guide 
+first.jar - find max temp across the years -
+hadoop jar src/first.jar com.ch02.MaxTempDriver /alomar/weatherdataset.csv /output
+ch3URLcat.jar - print all data in a text file at hdfs using URL api
+hadoop jar src/ch3URLcat.jar com.ch03.URLCat hdfs:///output/part-r-00000
+ch3FileSystemcat.jar - print all data in a text file at hdfs using filesystem api
+hadoop jar src/ch3FileSystemcat.jar com.ch03.FileSystemCat hdfs:///output/part-r-00000
+ch3FileCopy.jar - copy file from local to hdfs and overwrite it
+hadoop jar src/ch3FileCopy.jar com.ch03.FileCopy weatherdataset.csv hdfs:///test2/   (notice trailing slash in path)
+ch3FileStatus.jar - Lists file status
+hadoop jar src/ch3FileStatus.jar vom.ch03.FileStatus hdfs:///output/
